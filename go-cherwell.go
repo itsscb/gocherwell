@@ -253,7 +253,7 @@ type SaveResponse struct {
 	} `json:"notificationTriggers"`
 }
 
-// ## Link struct - most likely not needed
+// ## Link struct
 type Link struct {
 	Name string `json:"name,omitempty"`
 	URL  string `json:"url,omitempty"`
