@@ -100,11 +100,9 @@ type QuickSearch struct {
 		Error
 		IsBusObTarget          bool `json:"isBusObTarget,omitempty"`
 		SimpleResultsListItems []struct {
-			BusObID             string        `json:"busObId,omitempty"`
-			BusObRecID          string        `json:"busObRecId,omitempty"`
+			ObRec
 			DocRepositoryItemID interface{}   `json:"docRepositoryItemId,omitempty"`
 			GalleryImage        string        `json:"galleryImage,omitempty"`
-			Links               []interface{} `json:"links,omitempty"`
 			PublicID            string        `json:"publicId,omitempty"`
 			Scope               interface{}   `json:"scope,omitempty"`
 			ScopeOwner          interface{}   `json:"scopeOwner,omitempty"`
@@ -216,11 +214,9 @@ type SearchResult struct {
 			Error
 			IsBusObTarget          bool `json:"isBusObTarget,omitempty"`
 			SimpleResultsListItems []struct {
-				BusObID             string `json:"busObId,omitempty"`
-				BusObRecID          string `json:"busObRecId,omitempty"`
+				ObRec
 				DocRepositoryItemID string `json:"docRepositoryItemId,omitempty"`
 				GalleryImage        string `json:"galleryImage,omitempty"`
-				Links               []Link `json:"links"`
 				PublicID            string `json:"publicId,omitempty"`
 				Scope               string `json:"scope,omitempty"`
 				ScopeOwner          string `json:"scopeOwner,omitempty"`
