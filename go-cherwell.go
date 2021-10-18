@@ -614,9 +614,9 @@ func (a Client) SaveObRec(rec ObRec, fields []Field) (SaveResponse, error) {
 	for _, field := range template.Fields {
 		for _, new := range fields {
 			if field.Name == new.Name {
-	new.Dirty = true
-	new.FieldID = field.FieldID
-	rec.Fields = append(rec.Fields, new)
+				new.Dirty = true
+				new.FieldID = field.FieldID
+				rec.Fields = append(rec.Fields, new)
 			}
 		}
 	}
@@ -664,9 +664,9 @@ func (a Client) DeleteObRec(rec ObRec) (ObRec, error) {
 	return respRec, err
 }
 
-func (ob BusOb) NewObRec(fields []Field) ObRec {
+func (bo BusOb) NewObRec(fields []Field) ObRec {
 	rec := ObRec{
-		BusObID: ob.BusObID,
+		BusObID: bo.BusObID,
 		Fields:  fields,
 		Persist: true,
 	}
