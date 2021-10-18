@@ -99,17 +99,7 @@ type QuickSearch struct {
 	Groups []struct {
 		Error
 		IsBusObTarget          bool `json:"isBusObTarget,omitempty"`
-		SimpleResultsListItems []struct {
-			ObRec
-			DocRepositoryItemID interface{}   `json:"docRepositoryItemId,omitempty"`
-			GalleryImage        string        `json:"galleryImage,omitempty"`
-			PublicID            string        `json:"publicId,omitempty"`
-			Scope               interface{}   `json:"scope,omitempty"`
-			ScopeOwner          interface{}   `json:"scopeOwner,omitempty"`
-			SubTitle            string        `json:"subTitle,omitempty"`
-			Text                string        `json:"text,omitempty"`
-			Title               string        `json:"title,omitempty"`
-		} `json:"simpleResultsListItems,omitempty"`
+		SimpleResultsListItems []SimpleResultsListItem `json:"simpleResultsListItems,omitempty"`
 		SubTitle string `json:"subTitle,omitempty"`
 		TargetID string `json:"targetId,omitempty"`
 		Title    string `json:"title,omitempty"`
@@ -213,17 +203,7 @@ type SearchResult struct {
 		Groups []struct {
 			Error
 			IsBusObTarget          bool `json:"isBusObTarget,omitempty"`
-			SimpleResultsListItems []struct {
-				ObRec
-				DocRepositoryItemID string `json:"docRepositoryItemId,omitempty"`
-				GalleryImage        string `json:"galleryImage,omitempty"`
-				PublicID            string `json:"publicId,omitempty"`
-				Scope               string `json:"scope,omitempty"`
-				ScopeOwner          string `json:"scopeOwner,omitempty"`
-				SubTitle            string `json:"subTitle,omitempty"`
-				Text                string `json:"text,omitempty"`
-				Title               string `json:"title,omitempty"`
-			} `json:"simpleResultsListItems,omitempty"`
+			SimpleResultsListItems []SimpleResultsListItem `json:"simpleResultsListItems,omitempty"`
 			SubTitle string `json:"subTitle,omitempty"`
 			TargetID string `json:"targetId,omitempty"`
 			Title    string `json:"title,omitempty"`
@@ -231,6 +211,18 @@ type SearchResult struct {
 		Title string `json:"title,omitempty"`
 	} `json:"simpleResults,omitempty"`
 	TotalRows int64 `json:"totalRows,omitempty"`
+}
+
+type SimpleResultsListItem struct {
+	ObRec
+	DocRepositoryItemID string `json:"docRepositoryItemId,omitempty"`
+	GalleryImage        string `json:"galleryImage,omitempty"`
+	PublicID            string `json:"publicId,omitempty"`
+	Scope               string `json:"scope,omitempty"`
+	ScopeOwner          string `json:"scopeOwner,omitempty"`
+	SubTitle            string `json:"subTitle,omitempty"`
+	Text                string `json:"text,omitempty"`
+	Title               string `json:"title,omitempty"`
 }
 
 type SaveResponse struct {
