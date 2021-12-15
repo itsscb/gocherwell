@@ -1,6 +1,7 @@
 # gocherwell
 ***gocherwell*** is a go-Module for communication with the REST-API of [Named Link](https://cherwell.com "Cherwell").
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/itsscb/gocherwell.svg)](https://pkg.go.dev/github.com/itsscb/gocherwell)
 ## Usage
 ### Authentication
 ```
