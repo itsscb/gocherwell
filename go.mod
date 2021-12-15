@@ -1,3 +1,3 @@
-module github.com/itsscb/gocherwell
+module gocherwell
 
 go 1.16
