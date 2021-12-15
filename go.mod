@@ -1,3 +1,3 @@
-module github.com/itsscb/go-cherwell
+module gocherwell
 
 go 1.16

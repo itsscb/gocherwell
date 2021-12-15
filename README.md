@@ -1,109 +1,98 @@
 # gocherwell
-Go module for utilization of the Cherwell API
-
-## Info
-This build was tested with Cherwell API v9.7.
-
-See https://help.cherwell.com/bundle/cherwell_rest_api_970_help_only/page/content/system_administration/rest_api/csm_rest_api_landing_page.html
+***gocherwell*** is a go-Module for communication with the REST-API of [Named Link](https://cherwell.com "Cherwell").
 
 ## Usage
-### Create a new Instance
-````
-client := gocherwell.NewClient("USERNAME", "PASSWORD", "CLIENT_ID","BASE_URI","AUTH_MODE","GRANT_TYPE")
-````
-### Authenticate / Get Token
-````
-err := client.Login()
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get BusinessObject Summaries / Get all BusinessObjects
-````
-bos, err := client.GetAllBusOb()
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get BusinessObject by DisplayName
-````
-bo, err := client.GetBusOb("DISPLAYNAME_OF_BUSINESSOBJECT")
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get BusinessObjectRecord by PublicID
-````
-record, err := client.GetObRecByPublicID(bo, "PUBLICID_OF_RECORD")
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get BusinessObjectRecord by RecordID
-````
-record, err := client.GetObRecByRecID(bo, "RECORDID_OF_RECORD")
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get BusinessObjectTemplate
-````
-template, err := client.GetBusObTemplate("BUSINESSOBJECTID")
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get QuickSearch Results
-````
-results, err := client.QuickSearch("SEARCHTEXT")
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Get Search Results
-````
-filter, err := client.NewFilter(bo, []gocherwell.Filter{
-    {
-        FieldName: "AssetName",
-        Operator: "EQ",
-        FieldValue: "NAME_OF_ASSET",
-})
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-record, err := client.Search(bo, filter)
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Save(Update) / Create BusinessObjectRecord
-````
-record := bo.NewObRec([]gocherwell.Field{
-    {
-        Name: "AssetName",
-        Value: "NAME_OF_NEW_ASSET",
+### Authentication
+```
+var user = "TESTUSER"
+var password = "p4$$w0rd"
+var clientID = "0000-1111-2222-3333-4444"
+var baseURI = "https://example.com/CherwellAPI/"
+var auth_mode = "Internal"
+var grant_type = "password"
+
+cl := gocherwell.NewClient(
+    user,
+    password,
+    clientID,
+    baseURI,
+    auth_mode,
+    grant_type,
+).Login()
+```
+
+### Get BusinessObjects
+#### By DisplayName
+Example returns the BusinessObject with the ***DisplayName*** *Configuration Item*
+```
+bo := cl.GetBusinessObjectByDisplayName("Configuration Item")
+```
+#### By BusObID
+Example returns the BusinessObject with the ***BusObID*** *012345678910abcdefghijklmnop*
+```
+bo := cl.GetBusinessObjectByBusObID("012345678910abcdefghijklmnop")
+```
+
+### Get BusinessObjectRecords
+#### By PublicID
+Example returns the BusinessObjectRecord of the ***Configuration Item*** with the ***PublicID*** *NOTEBOOK001*
+```
+rec := bo.GetBusinessObjectRecordByPublicID(cl, "NOTEBOOK001")
+```
+#### By RecID
+Example returns the BusinessObjectRecord of the ***Configuration Item*** with the ***RecID*** *abcdefghijklmnop012345678910*
+```
+rec := bo.GetBusinessObjectRecordByRecID(cl, "abcdefghijklmnop012345678910")
+```
+#### By Search
+##### Single Record (First Hit)
+Example returns the first Hit of BusinessObjectRecords with the ***AssetName*** *NOTEBOOK001* of ***Type*** *Notebook* with the ***Status*** *Active* 
+```
+rec := bo.SearchObjectRecord(cl, []string{
+    "AssetName", "EQ", "NOTEBOOK001",
     },
-})
-response, err := client.SaveObRec(record) 
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
-### Delete BusinessObjectRecord
-````
-record, err := client.DeleteObRec(record)
-if err != nil {
-    fmt.Print(err.Error())
-    return err
-}
-````
+    []string{
+        "Type","EQ","Notebook",
+    },
+    []string{
+        "Status","EQ","Active"
+    },
+)
+```
+##### Multiple Records
+Example returns all BusinessObjectRecords of ***Type*** *Notebook* with the ***Status*** *Active* 
+```
+records := bo.SearchObjectRecord(cl, []string{
+    []string{
+        "Type","EQ","Notebook",
+    },
+    []string{
+        "Status","EQ","Active"
+    },
+)
+```
+### BusinessObjectRecord Actions
+#### Save BusinessObjectRecord
+This method goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
+```
+resp := rec.SaveBusinessObjectRecord(cl)
+```
+
+#### Delete BusinessObjectRecord
+```
+resp := rec.DeleteBusinessObjectRecord(cl)
+```
+
+#### Link BusinessObjectRecords
+Example links the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
+```
+child := cl.GetBusinessObject("Note").GetBusinessObjectRecordByPublicID("NOTE-1234")
+resp := rec.LinkBusinessObjectRecord(cl, child, "Configuration Item Links Note")
+```
+
+#### Unlink BusinessObjectRecords
+Example unlinks the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
+```
+child := cl.GetBusinessObject("Note").GetBusinessObjectRecordByPublicID("NOTE-1234")
+resp := rec.UninkBusinessObjectRecord(cl, child, "Configuration Item Links Note")
+```
