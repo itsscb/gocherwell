@@ -1,5 +1,5 @@
 # gocherwell
-***gocherwell*** is a go-Module for communication with the REST-API of [Cherwell](https://cherwell.com "Cherwell").
+***gocherwell*** is a go-Module for communication with the REST-API of [Cherwell](https://cherwell.com "https://cherwell.com").
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/itsscb/gocherwell.svg)](https://pkg.go.dev/github.com/itsscb/gocherwell)
 ## Usage
