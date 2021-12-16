@@ -368,9 +368,9 @@ func (cl *Client) Login() *Client {
 		return nil
 	}
 	defer resp.Body.Close()
-	err = UnJson(resp.Body, &cl)
+	err = unJson(resp.Body, &cl)
 	if err != nil {
-		fmt.Printf("\nLogin failed @ UnJson: %v", err)
+		fmt.Printf("\nLogin failed @ unJson: %v", err)
 		return cl
 	}
 	return cl
@@ -400,9 +400,9 @@ func (cl *Client) keepAlive() bool {
 		return false
 	}
 	defer resp.Body.Close()
-	err = UnJson(resp.Body, &cl)
+	err = unJson(resp.Body, &cl)
 	if err != nil {
-		fmt.Printf("\nLogin failed @ UnJson: %v", err)
+		fmt.Printf("\nLogin failed @ unJson: %v", err)
 		return false
 	}
 	return true
@@ -465,7 +465,7 @@ func (cl *Client) request(method, uri string, input, output interface{}) {
 	}
 	defer resp.Body.Close()
 
-	err = UnJson(resp.Body, &output)
+	err = unJson(resp.Body, &output)
 	if err != nil {
 		fmt.Printf("\nFailed to unmarshal Response: %v\nMethod: %v\nURI: %v\nResponse: %v", err, method, uri, resp)
 		return
@@ -844,8 +844,8 @@ func (cl *Client) GetTeamMembers(teamName string) *[]BusinessObjectRecord {
 	return members
 }
 
-// UnJson unmarshals a given io.ReadCloser to a given interface
-func UnJson(input io.ReadCloser, data interface{}) error {
+// unJson unmarshals a given io.ReadCloser to a given interface
+func unJson(input io.ReadCloser, data interface{}) error {
 	ioBody, err := ioutil.ReadAll(input)
 	if err != nil {
 		fmt.Print(err.Error())
