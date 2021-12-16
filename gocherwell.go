@@ -306,6 +306,8 @@ type Filter struct {
 	Value     string `json:"value,omitempty"`
 }
 
+// Field is used to Marshal the HTTP-Response to the Cherwell API.
+// Extends multiple Types
 type Field struct {
 	Dirty       bool   `json:"dirty,omitempty"`
 	DisplayName string `json:"displayName,omitempty"`
@@ -316,6 +318,8 @@ type Field struct {
 	FullFieldID string `json:"fullFieldId"`
 }
 
+// Error is used to Marshal the HTTP-Response to the Cherwell API.
+// Extends multiple Types
 type Error struct {
 	ErrorCode      string `json:"errorCode,omitempty"`
 	ErrorMessage   string `json:"errorMessage,omitempty"`
@@ -323,6 +327,8 @@ type Error struct {
 	HTTPStatusCode string `json:"httpStatusCode"`
 }
 
+// Link is used to Marshal the HTTP-Response to the Cherwell API.
+// Extends multiple Types
 type Link struct {
 	Name string `json:"name,omitempty"`
 	URL  string `json:"url,omitempty"`
