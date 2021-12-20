@@ -562,8 +562,29 @@ func (bo *BusinessObject) GetBusinessObjectRecordByRecID(cl *Client, recID strin
 	return &rec
 }
 
-// GetBusinessObjectTemplate retreives a Cherwell BusinessObjectTemplate of a given BusinessObject and returns it
-func (bo *BusinessObject) GetBusinessObjectTemplate(cl *Client) *BusinessObjectTemplate {
+// NewBusinessObjectRecord creates and saves a CHerwell BusinessObjectRecord with the given fields and returns it
+func (bo *BusinessObject) NewBusinessObjectRecord(cl *Client, fields []Field) *BusinessObjectRecord {
+	if bo == nil {
+		fmt.Printf("\nBusinessObject cannot be nil")
+		return nil
+	}
+	rec := BusinessObjectRecord{}
+	rec.BusObID = bo.BusObID
+	rec.FieldValues = make(map[string]interface{})
+	for _, f := range fields {
+		rec.FieldValues[f.DisplayName] = f.Value
+	}
+
+	templ := bo.getBusinessObjectTemplate(cl)
+	rec.Fields = append(rec.Fields, templ.Fields...)
+
+	res := rec.SaveBusinessObjectRecord(cl)
+
+	return res
+}
+
+// getBusinessObjectTemplate retreives a Cherwell BusinessObjectTemplate of a given BusinessObject and returns it
+func (bo *BusinessObject) getBusinessObjectTemplate(cl *Client) *BusinessObjectTemplate {
 	if bo == nil {
 		fmt.Printf("\nBusinessObject cannot be nil")
 		return nil
@@ -592,7 +613,7 @@ func (bo *BusinessObject) SearchBusinessObjectRecord(cl *Client, filters ...[]st
 	res := SearchResult{}
 	uri := cl.BaseURI + getSearchResultsURI
 	filter := []Filter{}
-	fields := bo.GetBusinessObjectTemplate(cl)
+	fields := bo.getBusinessObjectTemplate(cl)
 	for _, f := range fields.Fields {
 
 		for _, fi := range filters {
@@ -629,7 +650,7 @@ func (bo *BusinessObject) SearchMultipleBusinessObjectRecords(cl *Client, filter
 	res := SearchResult{}
 	uri := cl.BaseURI + getSearchResultsURI
 	filter := []Filter{}
-	fields := bo.GetBusinessObjectTemplate(cl)
+	fields := bo.getBusinessObjectTemplate(cl)
 	for _, f := range fields.Fields {
 
 		for _, fi := range filters {
