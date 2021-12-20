@@ -82,7 +82,20 @@ resp := rec.SaveBusinessObjectRecord(cl)
 #### Save BusinessObjectRecord
 This method of ***BusinessObjectRecord*** goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
 ```
-resp := rec.SaveBusinessObjectRecord(cl)
+rec := bo.NewBusinessObjectRecord(cl, []gocherwell.Field{
+    gocherwell.Field{
+        DisplayName:    "AssetName",
+        Value:          "NOTEBOOK001",
+    },
+    gocherwell.Field{
+        DisplayName:    "AssetType",
+        Value:          "Notebook",
+    },
+    gocherwell.Field{
+        DisplayName:    "Status",
+        Value:          "Active",
+    },
+})
 ```
 
 #### Delete BusinessObjectRecord
