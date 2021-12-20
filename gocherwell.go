@@ -562,7 +562,7 @@ func (bo *BusinessObject) GetBusinessObjectRecordByRecID(cl *Client, recID strin
 	return &rec
 }
 
-// NewBusinessObjectRecord creates and saves a CHerwell BusinessObjectRecord with the given fields and returns it
+// NewBusinessObjectRecord creates and saves a Cherwell BusinessObjectRecord with the given fields and returns it
 func (bo *BusinessObject) NewBusinessObjectRecord(cl *Client, fields []Field) *BusinessObjectRecord {
 	if bo == nil {
 		fmt.Printf("\nBusinessObject cannot be nil")
