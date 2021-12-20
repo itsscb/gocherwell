@@ -73,26 +73,39 @@ records := bo.SearchObjectRecord(cl, []string{
 )
 ```
 ### BusinessObjectRecord Actions
+#### New BusinessObjectRecord
+This method of ***BusinessObject*** takes all given ***Field***s and creates a BusinessObjectRecord with them
+```
+resp := rec.SaveBusinessObjectRecord(cl)
+```
+
 #### Save BusinessObjectRecord
-This method goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
+This method of ***BusinessObjectRecord*** goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
 ```
 resp := rec.SaveBusinessObjectRecord(cl)
 ```
 
 #### Delete BusinessObjectRecord
+This method of ***BusinessObjectRecord*** deletes the executing ***BusinessObjectRecord***
 ```
 resp := rec.DeleteBusinessObjectRecord(cl)
 ```
 
 #### Link BusinessObjectRecords
-Example links the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
+This method of ***BusinessObjectRecord*** links the executing and the given ***BusinessObjectRecord***
+
+
+The following Example links the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
 ```
 child := cl.GetBusinessObject("Note").GetBusinessObjectRecordByPublicID("NOTE-1234")
 resp := rec.LinkBusinessObjectRecord(cl, child, "Configuration Item Links Note")
 ```
 
 #### Unlink BusinessObjectRecords
-Example unlinks the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
+This method of ***BusinessObjectRecord*** unlinks the executing and the given ***BusinessObjectRecord***
+
+
+The following Example unlinks the ***Configuration Item*** *NOTEBOOK001* to the ***Note** with the ***PublicID*** *NOTE-1234*
 ```
 child := cl.GetBusinessObject("Note").GetBusinessObjectRecordByPublicID("NOTE-1234")
 resp := rec.UninkBusinessObjectRecord(cl, child, "Configuration Item Links Note")
