@@ -76,12 +76,6 @@ records := bo.SearchObjectRecord(cl, []string{
 #### New BusinessObjectRecord
 This method of ***BusinessObject*** takes all given ***Field***s and creates a BusinessObjectRecord with them
 ```
-resp := rec.SaveBusinessObjectRecord(cl)
-```
-
-#### Save BusinessObjectRecord
-This method of ***BusinessObjectRecord*** goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
-```
 rec := bo.NewBusinessObjectRecord(cl, []gocherwell.Field{
     gocherwell.Field{
         DisplayName:    "AssetName",
@@ -96,6 +90,12 @@ rec := bo.NewBusinessObjectRecord(cl, []gocherwell.Field{
         Value:          "Active",
     },
 })
+```
+
+#### Save BusinessObjectRecord
+This method of ***BusinessObjectRecord*** goes over all ***.FieldValues*** and commits the changed fields to ***.Fields*** and sets ***Dirty*** to *True*
+```
+resp := rec.SaveBusinessObjectRecord(cl)
 ```
 
 #### Delete BusinessObjectRecord
